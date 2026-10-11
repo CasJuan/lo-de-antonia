@@ -34,4 +34,21 @@ public class CabanaController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        if (cabanaService.findById(id).isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        cabanaService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Cabana> update(@PathVariable Long id, @RequestBody Cabana datos){
+        return cabanaService.update(id,datos)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+
 }

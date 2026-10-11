@@ -28,4 +28,18 @@ public class CabanaService {
         return cabanaRepository.findById(id);
     }
 
+    public void deleteById (Long id){
+        cabanaRepository.deleteById(id);
+    }
+
+    public Optional<Cabana> update (Long id, Cabana datos){
+        return cabanaRepository.findById(id).map(cabana -> {
+            cabana.setNombre(datos.getNombre());
+            cabana.setPrecio(datos.getPrecio());
+            cabana.setDescripcion(datos.getDescripcion());
+            cabana.setCapacidad(datos.getCapacidad());
+            return cabanaRepository.save(cabana);
+        });
+    }
+
 }

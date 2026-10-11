@@ -5,6 +5,7 @@ import com.lodeantonia.lodeAntonia.repository.CabanaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CabanaService {
@@ -21,6 +22,10 @@ public class CabanaService {
 
     public Cabana save (Cabana cabana) {
         return  cabanaRepository.save(cabana);
+    }
+
+    public Optional<Cabana> findById(Long id){
+        return cabanaRepository.findById(id);
     }
 
 }

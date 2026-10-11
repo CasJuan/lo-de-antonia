@@ -2,6 +2,7 @@ package com.lodeantonia.lodeAntonia.controller;
 
 import com.lodeantonia.lodeAntonia.model.Cabana;
 import com.lodeantonia.lodeAntonia.service.CabanaService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,13 @@ public class CabanaController {
     @PostMapping
     public Cabana save(@RequestBody Cabana cabana) {
         return cabanaService.save(cabana);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Cabana> findById (@PathVariable Long id){
+        return cabanaService.findById(id)
+                .map(ResponseEntity ::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
 }

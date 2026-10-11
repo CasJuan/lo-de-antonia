@@ -2,9 +2,7 @@ package com.lodeantonia.lodeAntonia.controller;
 
 import com.lodeantonia.lodeAntonia.model.Cabana;
 import com.lodeantonia.lodeAntonia.service.CabanaService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +19,11 @@ public class CabanaController {
     @GetMapping
     public List <Cabana> findAll() {
         return cabanaService.findAll();
+    }
+
+    @PostMapping
+    public Cabana save(@RequestBody Cabana cabana) {
+        return cabanaService.save(cabana);
     }
 
 }

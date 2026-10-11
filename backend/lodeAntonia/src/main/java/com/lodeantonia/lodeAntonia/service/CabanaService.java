@@ -19,4 +19,8 @@ public class CabanaService {
         return cabanaRepository.findAll();
     }
 
+    public Cabana save (Cabana cabana) {
+        return  cabanaRepository.save(cabana);
+    }
+
 }

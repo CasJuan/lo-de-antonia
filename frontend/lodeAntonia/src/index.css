@@ -1,16 +1,14 @@
 @import "tailwindcss";
 
-*{
-  font-family: "Playfair Display", serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-}
 
-@theme{
+@theme {
   --color-marronPrincipal: #9A6F4E;
   --color-marronClaro: #B38968;
   --color-marronOscuro: #78573D;
   --color-arena: #E0D9C6;
   --color-crema: #F2EFE7;
   --color-blanco: #FFFFFF;
+
+  --font-title: "Cinzel Decorative", serif;
+
 }

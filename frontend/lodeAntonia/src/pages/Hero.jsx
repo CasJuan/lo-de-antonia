@@ -1,7 +1,8 @@
 import portada from "../assets/portada.jpg";
 
 export const Hero = () => {
-    return (
+  return (
+    <>
       <section
         className="relative min-h-[90vh] w-full bg-cover bg-center bg-no-repeat flex flex-col font-thin"
         style={{ backgroundImage: `url(${portada})` }}
@@ -18,5 +19,6 @@ export const Hero = () => {
           </p>
         </div>
       </section>
-    );
-  };
+    </>
+  );
+};

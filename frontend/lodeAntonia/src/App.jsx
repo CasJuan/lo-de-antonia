@@ -1,6 +1,10 @@
+import { Buscador } from "./components/Buscador"
+import { Categorias } from "./components/Categorias"
 import { Footer } from "./components/Footer"
 import { Header } from "./components/Header"
-import { Hero } from "./components/Hero"
+import { Recomendaciones } from "./components/Recomendaciones"
+import {Hero} from "./pages/Hero"
+
 
 
 function App() {
@@ -8,6 +12,9 @@ function App() {
     <>
       <Header/>
       <Hero/>
+      <Buscador/>
+      <Categorias/>
+      <Recomendaciones/>
       <Footer/>
     </>
   )

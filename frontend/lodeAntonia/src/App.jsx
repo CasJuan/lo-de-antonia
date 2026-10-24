@@ -1,9 +1,8 @@
-import { Buscador } from "./components/Buscador"
-import { Categorias } from "./components/Categorias"
+import { Route, Routes } from "react-router-dom"
 import { Footer } from "./components/Footer"
 import { Header } from "./components/Header"
-import { Recomendaciones } from "./components/Recomendaciones"
-import {Hero} from "./pages/Hero"
+import { Home } from "./pages/Home"
+import { Detalle } from "./pages/Detalle"
 
 
 
@@ -11,10 +10,10 @@ function App() {
   return (
     <>
       <Header/>
-      <Hero/>
-      <Buscador/>
-      <Categorias/>
-      <Recomendaciones/>
+      <Routes>
+        <Route path="/" element= {<Home />} />
+        <Route path="/cabanas/:id" element= {<Detalle/>} />
+      </Routes>
       <Footer/>
     </>
   )

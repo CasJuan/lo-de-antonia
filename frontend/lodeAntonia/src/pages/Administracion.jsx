@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { data } from "react-router-dom";
 
 
 const API_URL = "http://localhost:8080";
@@ -15,6 +14,8 @@ export const Administracion = () => {
         descripcion: "",
         capacidad: ""
     })
+
+    const [archivos, setArchivos] = useState([]);
 
     const handleChange = (e) => {
         console.log(e.target.name, e.target.value)
@@ -43,8 +44,36 @@ export const Administracion = () => {
             .catch(err => console.error(err))
     }
 
+    const subirArchivo = (archivo) => {
+        const datos = new FormData();
+        datos.append("archivo",archivo);
+        return fetch(`${API_URL}/imagenes/subir`,{
+            method:"POST",
+            body:datos
+        })
+            .then(res => {
+                if(!res.ok) throw new Error("No se pudo agregar el arhivo");
+                return res.text();
+            });
+    }
+
+    const registrarImagen = (nombre, cabanId) => {
+        return fetch(`${API_URL}/imagenes`, {
+            method:"POST",
+            headers:  { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                url: `${API_URL}/uploads/${nombre}`,
+                cabana: {id: cabanId}
+            })
+        }).then(res => {
+            if(!res.ok) throw new Error("No se pudo registrar la imagen");
+            return res.json()
+        })
+    }
+
     const agregar = (e) => {
         e.preventDefault();
+        const formulario = e.target;
         const cabanaNueva = {
             ...addCabana,
             precio: Number(addCabana.precio),
@@ -59,18 +88,27 @@ export const Administracion = () => {
                 if (!res.ok) throw new Error("No se puede agregar!");
                 return res.json()
             })
-            .then(data => {
-                setCabanas(prev => [...prev, data]);
+            .then(cabana => 
+                Promise.all(archivos.map(a => subirArchivo(a)))
+                    .then(nombres => Promise.all(nombres.map(n => registrarImagen(n, cabana.id))))
+                    .then(()=> cabana)
+            )
+            .then(cabana => {
+                setCabanas(prev => [...prev, cabana]);
                 setAddCabana({
                     nombre: "",
                     precio: "",
                     descripcion: "",
                     capacidad: ""
                 });
+                setArchivos([]);
+                formulario.reset();
                 window.alert("La cabaña se agrego correctamente")
             })
             .catch(err => { console.error(err); window.alert("La cabaña no se puedo agregar") })
     }
+
+    console.log(archivos)
 
     return (
         <section className="max-w-5xl mx-auto px-6 py-16">
@@ -86,6 +124,8 @@ export const Administracion = () => {
                         <input required id="capacidad" type="number" name="capacidad" onChange={handleChange} placeholder="Ingresa la capacidad" value={addCabana.capacidad} className="border rounded-2xl py-2 px-2" />
                         <label htmlFor="descripcion" className="font-bold text-xs italic">Descripcion:</label>
                         <textarea required id="descripcion" name="descripcion" onChange={handleChange} placeholder="Ingresa la descripcion" value={addCabana.descripcion} className="border rounded-2xl py-2 px-2" />
+                        <label htmlFor="imagenes">Imagenes:</label>
+                        <input type="file" id="imagenes" accept="image/*" multiple onChange={(e) => setArchivos(Array.from(e.target.files))} className="border rounded-2xl py-2 px-2" />
                     </div>
                     <button type="submit" className="cursor-pointer bg-marronClaro rounded-2xl h-10 w-40 py-2 px-2 m-2 text-blanco">Agregar Cabaña</button>
                 </form>

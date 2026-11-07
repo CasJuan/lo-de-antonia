@@ -2,7 +2,10 @@ package com.lodeantonia.lodeAntonia.service;
 
 import com.lodeantonia.lodeAntonia.model.Cabana;
 import com.lodeantonia.lodeAntonia.repository.CabanaRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +24,9 @@ public class CabanaService {
     }
 
     public Cabana save (Cabana cabana) {
+        if(cabanaRepository.existsByNombre(cabana.getNombre())){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Ya existe una cabaña con este nombre ");
+        }
         return  cabanaRepository.save(cabana);
     }
 

@@ -85,6 +85,7 @@ export const Administracion = () => {
             body: JSON.stringify(cabanaNueva)
         })
             .then(res => {
+                if (res.status === 409) throw new Error("Ya existe una cabaña con ese nombre");
                 if (!res.ok) throw new Error("No se puede agregar!");
                 return res.json()
             })
@@ -105,7 +106,7 @@ export const Administracion = () => {
                 formulario.reset();
                 window.alert("La cabaña se agrego correctamente")
             })
-            .catch(err => { console.error(err); window.alert("La cabaña no se puedo agregar") })
+            .catch(err => { console.error(err); window.alert(err.message) })
     }
 
     console.log(archivos)

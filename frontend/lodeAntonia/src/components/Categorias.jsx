@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Heart, Users, Waves } from "lucide-react";
 
 const categorias = [
@@ -29,7 +28,7 @@ export const Categorias = () => {
           Elegí el tipo de escapada que estás buscando
         </p>
       </div>
-      <div className="flex flex-wrap items-stretch justify-center gap-5 max-w-5xl">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full max-w-5xl">
         {categorias.map(({ nombre, descripcion, icono: Icono }) => {
 
           return (
@@ -37,7 +36,7 @@ export const Categorias = () => {
               key={nombre}
               type="button"
 
-              className={`flex flex-col sm:flex-row items-center sm:items-start gap-4 min-w-56 max-w-xs rounded-2xl p-5 cursor-pointer border text-left transition-all ${"bg-marronOscuro text-blanco border-marronOscuro shadow-md"
+              className={`flex flex-col sm:flex-row items-center sm:items-start gap-4 w-full rounded-2xl p-5 cursor-pointer border text-left transition-all ${"bg-marronOscuro text-blanco border-marronOscuro shadow-md"
                 }`}
             >
               <span

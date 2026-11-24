@@ -2,9 +2,11 @@ package com.lodeantonia.lodeAntonia.service;
 
 import com.lodeantonia.lodeAntonia.model.Cabana;
 import com.lodeantonia.lodeAntonia.repository.CabanaRepository;
+import com.lodeantonia.lodeAntonia.repository.ImagenRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -15,8 +17,11 @@ public class CabanaService {
 
     private final CabanaRepository cabanaRepository;
 
-    public CabanaService(CabanaRepository cabanaRepository) {
+    private final ImagenRepository imagenRepository;
+
+    public CabanaService(CabanaRepository cabanaRepository, ImagenRepository imagenRepository) {
         this.cabanaRepository = cabanaRepository;
+        this.imagenRepository = imagenRepository;
     }
 
     public List<Cabana> findAll() {
@@ -24,6 +29,7 @@ public class CabanaService {
     }
 
     public Cabana save (Cabana cabana) {
+        cabana.setId(null);
         if(cabanaRepository.existsByNombre(cabana.getNombre())){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Ya existe una cabaña con este nombre ");
         }
@@ -34,7 +40,9 @@ public class CabanaService {
         return cabanaRepository.findById(id);
     }
 
+    @Transactional
     public void deleteById (Long id){
+        imagenRepository.deleteByCabanaId(id);
         cabanaRepository.deleteById(id);
     }
 

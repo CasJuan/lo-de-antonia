@@ -8,11 +8,11 @@ export const Hero = () => {
         style={{ backgroundImage: `url(${portada})` }}
       >
         <div className="absolute inset-0 bg-black/40"></div>
-        <div className="relative flex items-start justify-center gap-6 flex-col flex-1 px-8 max-w-3xl ml-20">
-          <h2 className="text-5xl font-bold text-blanco font-title">
+        <div className="relative flex items-start justify-center gap-6 flex-col flex-1 px-8 max-w-3xl md:ml-20">
+          <h2 className=" text-3xl md:text-5xl font-bold text-blanco font-title">
             Vida en la naturaleza con un toque de refinamiento
           </h2>
-          <p className="text-lg text-blanco">
+          <p className="text-lg text-blanco font-text wrap-break-word">
             Vive la belleza agreste de las montañas desde la comodidad de nuestras
             cabañas prémium, seleccionadas minuciosamente. La hospitalidad se une
             a la exclusividad.

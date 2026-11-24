@@ -16,7 +16,9 @@ public class ImagenService {
 
     public List<Imagen> findAll() {return imagenRepository.findAll();}
 
-    public Imagen save (Imagen imagen) {return imagenRepository.save(imagen);}
+    public Imagen save (Imagen imagen) {
+        imagen.setId(null);
+        return imagenRepository.save(imagen);}
 
     public Optional<Imagen> findById (Long id) {return imagenRepository.findById(id);}
 

@@ -2,7 +2,7 @@ import { Search } from "lucide-react";
 
 export const Buscador = () => {
   return (
-    <section className="relative bg-crema">
+    <section className="relative">
       <form
         className="relative z-10 w-full max-w-3xl mx-auto -mt-10 px-4"
       >

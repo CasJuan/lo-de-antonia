@@ -1,7 +1,7 @@
+import { ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
-const API_URL = "http://localhost:8080";
+import { useNavigate, useParams } from "react-router-dom";
+import {API_URL} from "../config"
 
 export const Detalle = () => {
   const { id } = useParams();
@@ -9,6 +9,7 @@ export const Detalle = () => {
   const [imagenes, setImagenes] = useState([]);
   const [error, setError] = useState(false);
   const [mostrarMas, setMostrarMas] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setError(false);
@@ -48,9 +49,20 @@ export const Detalle = () => {
 
   return (
     <section className="min-h-[80vh] w-full bg-crema text-marronOscuro py-16 px-6 flex flex-col items-center gap-10">
-
+  
+      <div className="w-full max-w-5xl flex flex-row justify-between items-center gap-4">
+        <h1 className="text-3xl md:text-4xl font-title font-bold">{cabana.nombre}</h1>
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="cursor-pointer flex flex-row items-center gap-2 font-semibold text-sm shrink-0"
+        >
+          <ArrowLeft size={18} />
+          Volver
+        </button>
+      </div>
+  
       <div className="relative grid grid-cols-2 grid-rows-1 gap-4 w-full max-w-5xl h-64 md:h-96">
-
         {imagenes[0] ? (
           <img
             src={imagenes[0].url}
@@ -62,7 +74,7 @@ export const Detalle = () => {
             No hay imágenes
           </div>
         )}
-
+  
         <div className="grid grid-cols-2 grid-rows-2 gap-4 w-full h-full min-h-0">
           {grilla.map((imagen) => (
             <img
@@ -73,22 +85,39 @@ export const Detalle = () => {
             />
           ))}
         </div>
-
+  
         {imagenes.length > 0 && (
           <button
             type="button"
             className="absolute bottom-3 right-3 bg-blanco/90 text-marronOscuro text-sm font-semibold rounded-2xl px-4 py-2 shadow cursor-pointer"
-            onClick={() => setMostrarMas(!mostrarMas)}
+            onClick={() => setMostrarMas(true)}
           >
             Ver más
           </button>
         )}
       </div>
-
+  
+      <div className="max-w-5xl mx-auto w-full flex flex-col md:flex-row items-center justify-center gap-10">
+        <div className="flex-1 flex flex-col justify-center gap-4">
+          <p className="text-lg leading-relaxed text-marronOscuro/90">
+            {cabana.descripcion}
+          </p>
+        </div>
+  
+        <div className="bg-blanco border border-arena rounded-2xl shadow-md flex flex-col items-center justify-center gap-3 px-10 py-12 min-w-64">
+          <p className="text-3xl font-semibold">
+            ${cabana.precio.toLocaleString("es-AR")}
+          </p>
+          <p className="bg-arena rounded-2xl px-4 py-1 text-sm">
+            Capacidad: {cabana.capacidad}
+          </p>
+        </div>
+      </div>
+  
       {mostrarMas && (
         <div className="fixed inset-0 z-55 overflow-y-auto bg-black/80 backdrop-blur-sm p-4">
           <div className="max-w-5xl mx-auto flex flex-col gap-4">
-
+  
             <div className="sticky top-0 z-10 flex justify-between items-center py-2 px-4 bg-black/60 rounded-2xl">
               <p className="text-2xl font-title font-bold text-blanco">Galería</p>
               <button
@@ -99,7 +128,7 @@ export const Detalle = () => {
                 Cerrar
               </button>
             </div>
-
+  
             {imagenes.map((imagen) => (
               <img
                 key={imagen.id}
@@ -108,29 +137,11 @@ export const Detalle = () => {
                 className="w-full rounded-2xl object-cover"
               />
             ))}
-
+  
           </div>
         </div>
       )}
-
-
-      <div className="max-w-5xl mx-auto w-full flex flex-col md:flex-row items-center justify-center gap-10">
-        <div className="flex-1 flex flex-col justify-center gap-4">
-          <h2 className="text-4xl font-title font-bold">{cabana.nombre}</h2>
-          <p className="text-lg leading-relaxed text-marronOscuro/90">
-            {cabana.descripcion}
-          </p>
-        </div>
-
-        <div className="bg-blanco border border-arena rounded-2xl shadow-md flex flex-col items-center justify-center gap-3 px-10 py-12 min-w-64">
-          <p className="text-3xl font-semibold">
-            ${cabana.precio.toLocaleString("es-AR")}
-          </p>
-          <p className="bg-arena rounded-2xl px-4 py-1 text-sm">
-            Capacidad: {cabana.capacidad}
-          </p>
-        </div>
-      </div>
+  
     </section>
   );
 };

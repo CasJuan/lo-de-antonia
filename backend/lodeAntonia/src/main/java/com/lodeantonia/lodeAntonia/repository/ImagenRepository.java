@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ImagenRepository extends JpaRepository<Imagen, Long> {
     List<Imagen> findByCabanaId (Long cabanaId);
+    void deleteByCabanaId (Long cabanaId);
 }

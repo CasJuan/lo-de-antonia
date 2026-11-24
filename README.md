@@ -47,7 +47,6 @@ lodeAntonia/
 ├── backend/lodeAntonia/    # API REST con Spring Boot
 │   └── uploads/            # imágenes subidas (se crea sola, no se versiona)
 ├── frontend/lodeAntonia/   # Aplicación React
-└── docs/                   # documentación y casos de prueba
 Cómo correrlo en local
 Requisitos
 JDK 21 o superior (probado con JDK 26)
@@ -105,7 +104,6 @@ Ruta	Pantalla
 /administracion/listado	Lista de cabañas con acciones
 Documentación y pruebas
 
-La documentación del proyecto, la identidad de marca y los casos de prueba del Sprint 1 están en la carpeta docs/.
 
 Limitaciones conocidas del Sprint 1
 El panel de administración todavía no tiene autenticación: se accede directamente por la URL. El login llega en el Sprint 2.

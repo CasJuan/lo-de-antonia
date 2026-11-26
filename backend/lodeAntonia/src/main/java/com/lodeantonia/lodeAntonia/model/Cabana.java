@@ -6,6 +6,8 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -37,5 +39,13 @@ public class Cabana {
         createdAt = LocalDateTime.now();
     }
 
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "cabana_caracteristica",inverseJoinColumns = @JoinColumn(name = "caracteristica_id"))
+    private Set<Caracteristica>caracteristicas = new HashSet<>();
 
 }
